@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestBestbuy" verbose="5">
+	<!-- <parameter name="browserName" value="chrome"/> -->
+	<test name="TestClass">
+		<classes>
+			<class name="schleuniger.testcases.Test_Class" />
+		</classes>
+	</test>
+</suite>

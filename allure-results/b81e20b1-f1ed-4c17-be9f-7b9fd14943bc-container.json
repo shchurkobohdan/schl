@@ -1,0 +1,1 @@
+{"uuid":"b81e20b1-f1ed-4c17-be9f-7b9fd14943bc","name":"schleuniger.testcases.TestCaseBaseForLoggedInUser.setup","description":"","start":1515625488380,"stop":1515625548167,"children":["047ee1bf-ff97-4e3c-b7fb-539bafc70d25"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","start":1515625488382,"stop":1515625548164}]}

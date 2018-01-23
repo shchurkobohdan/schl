@@ -1,0 +1,1 @@
+{"uuid":"7cb2a586-7465-45c1-b1ac-d3dbc56db8ad","name":"schleuniger.testcases.TestCaseBaseForLoggedInUser.tearDown","description":"","start":1516139762394,"stop":1516139763736,"children":["9676516d-4f2d-45b2-9672-5ec38559cd66"],"afters":[{"name":"tearDown","status":"passed","stage":"finished","description":"","start":1516139762395,"stop":1516139763736}]}
