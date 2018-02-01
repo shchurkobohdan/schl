@@ -30,6 +30,7 @@ public class Login extends Page{
 	}
 	
 	public void typePassw(){
+		//passw.sendKeys("IkmjysuthGfhjkm");
 		passw.sendKeys("IkmjysuthGfhjkm");
 	}
 	

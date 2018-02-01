@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -33,12 +35,12 @@ public class ProductTemplate extends Page{
 	@FindBy(xpath="//*[@id='edit_field_category_chosen']/ul/li/input")
 	private WebElement categoryField; 	
 	
-	ArrayList<WebElement> categories = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_category_chosen']/div/ul/li")));
+	//ArrayList<WebElement> categories = new ArrayList<WebElement>(webDriver.findElements(By.xpath("//div[@id='edit_field_category_chosen']/div/ul/li")));
 	
 	@FindBy(xpath="//div[@id='edit_field_industry_chosen']")
 	private WebElement industryField;
 	
-	ArrayList<WebElement> industries = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_industry_chosen']/div/ul/li")));
+	//ArrayList<WebElement> industries = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_industry_chosen']/div/ul/li")));
 	
 	@FindBy(xpath="//div[@id='edit-field-short-description-wrapper']//iframe")
 	private WebElement shortDesciption;
@@ -96,26 +98,56 @@ public class ProductTemplate extends Page{
 		select.selectByValue(value);
 	}
 	
-	public void chooseCategory(String category){
+	public void chooseCategory(String categ){
 		categoryField.click();
-		for (int i = 0; i <= categories.size(); i++){
-			if (categories.get(i).getText() == category){
+	    getWebDriverWait(10).until(ExpectedConditions.attributeContains(webDriver.findElement(By.
+	    		xpath("//div[@id='edit_field_category_chosen']")), "class", "chosen-container-active"));
+	    ArrayList<WebElement> categories = new ArrayList<WebElement>(webDriver.findElements(By.xpath("//div[@id='edit_field_category_chosen']/div/ul/li")));
+		for (int i = 0; i < categories.size(); i++){
+			if (categories.get(i).getText().contains(categ)){
+				getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(categories.get(i)));
+				new Actions(webDriver).moveToElement(categories.get(i)).perform();
 				categories.get(i).click();
+				break;
 			}
 		}
-		
-		
-		/*for (WebElement i: categories){
-			if(i.getText() == category){
-				i.click();
-			}
-		}*/
 	}
+	
+	public void chooseIndustry(String industry){
+		industryField.click();
+	    getWebDriverWait(10).until(ExpectedConditions.attributeContains(webDriver.findElement(By.
+	    		xpath("//div[@id='edit_field_industry_chosen']")), "class", "chosen-container-active"));
+	    ArrayList<WebElement> industries = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_industry_chosen']/div/ul/li")));
+		for (int i = 0; i < industries.size(); i++){
+			if (industries.get(i).getText().contains(industry)){
+				getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(industries.get(i)));
+				new Actions(webDriver).moveToElement(industries.get(i)).perform();
+				industries.get(i).click();			
+			}		
+		}
+	}
+	
+	public void chooseValueChain(String valueChain){
+		industryField.click();
+	    getWebDriverWait(10).until(ExpectedConditions.attributeContains(webDriver.findElement(By.
+	    		xpath("//div[@id='edit_field_industry_chosen']")), "class", "chosen-container-active"));
+	    ArrayList<WebElement> industries = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_industry_chosen']/div/ul/li")));
+		for (int i = 0; i < industries.size(); i++){
+			
+			  if (industries.get(i).getText().contains(valueChain)){
+				getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(industries.get(i)));
+				new Actions(webDriver).moveToElement(industries.get(i)).click().build().perform();
+				//industries.get(i).click();	
+			}
+		}
+	}
+	
 	
 	public boolean isElemDisplayed(){
 		if(title.isDisplayed() && title.isEnabled()){
 			return true;
-		}return false;
+		}else 
+			return false;
 	}
 	
 	public void clickSaveAndPublish(){

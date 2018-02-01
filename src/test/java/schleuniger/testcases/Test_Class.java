@@ -6,6 +6,7 @@ import framework.pages.MyPageFactory;
 import framework.utility.LogFactory;
 import framework.utility.WebDriverListener;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Sleeper;
@@ -36,20 +37,22 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		productTemplate.getWebDriverWait(5);
 		productTemplate.typeTitle("Test Product");
 		productTemplate.getWebDriverWait(10);
+		
 		productTemplate.typeSubitle("Subtitle");
 		productTemplate.getWebDriverWait(10);
 		productTemplate.selectLang("de-de");
 		productTemplate.getWebDriverWait(10);
 		productTemplate.chooseCategory("Strip");
+		productTemplate.chooseIndustry("Automotive");
+		productTemplate.chooseValueChain("Wire Harness");
+		productTemplate.getWebDriverWait(20);
 		productTemplate.clickSaveAndPublish();
-		
+		//Assert.assertTrue(webDriver.findElement(By.xpath("//*[@id='edit_field_category_chosen']/ul/li[@class='search-choice']")).isDisplayed());
 		
 		
 		
 		//productTemplate.selectLang("de");
 		//productTemplate.chooseCategory("Cut");
-		
-
-		
+				
 	}
 }
