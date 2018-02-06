@@ -48,7 +48,8 @@ public class ProductTemplate extends Page{
 	@FindBy(xpath="//details[@id='edit-group-overview']")
 	private WebElement overviewTab;
 	
-	@FindBy(xpath="//details[@id='edit-group-overview//iframe']")
+	@FindBy(xpath="(//iframe)[2]")
+	//details[@id='edit-group-overview//iframe']
 	private WebElement overviewFrame;
 	
 	@FindBy(xpath="//details[@id='edit-group-technical-data']")
@@ -57,11 +58,13 @@ public class ProductTemplate extends Page{
 	@FindBy(xpath="//span[contains(text(),'Select a value')]")
 	private WebElement technicalDataNameDrop;
 	
-    ArrayList <WebElement> technicalDataNameList = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_technical_data_values_0_subform_field_line_form_inline_entity_form_field_name_chosen']//ul/li")));
+    //ArrayList <WebElement> technicalDataNameList = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_technical_data_values_0_subform_field_line_form_inline_entity_form_field_name_chosen']//ul/li")));
 	
-    @FindBy(xpath="//input[@id='edit-field-technical-data-values-0-subform-field-line-form-inline-entity-"
-    		+ "form-actions-ief-add-save--nYzfmFImXBw']")
-	private WebElement createTechnicalDataRowBtn;
+	@FindBy(xpath="(//iframe)[4]")
+	private WebElement TDValueFrame;
+	
+    @FindBy(xpath="//input[@value='Create line']")
+	private WebElement createTechnicalDataLineBtn;
     
     @FindBy(xpath="//details[@id='edit-group-slider']//a[@href='#edit-group-slider']")
 	private WebElement sliderTab;
@@ -141,6 +144,45 @@ public class ProductTemplate extends Page{
 			}
 		}
 	}
+	
+	public void clickOnOverviewTabAndSetValue(String txt){
+		overviewTab.click();
+		getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(By.xpath("(//iframe)[2]")));
+		//return webDriver.findElement(By.xpath("(//*[@class='cke_wysiwyg_frame cke_reset'])[2]"));
+		webDriver.switchTo().frame(overviewFrame);
+		getJSExecutor().executeScript("arguments[0].innerText='TEST TEST TEST'", webDriver.findElement(By.xpath("//body/p")));
+		//webDriver.findElement(By.xpath("//body/p")).sendKeys(txt);
+		webDriver.switchTo().defaultContent();
+		
+	}
+	
+	public void openTechDataNamesTabAndChooseTDN(String TDN){
+		technicalDataTab.click();
+		getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(technicalDataNameDrop));
+		technicalDataNameDrop.click();
+		getWebDriverWait(10).until(ExpectedConditions.attributeContains(webDriver.findElement(By.
+	    		xpath("//*[@id='edit_field_technical_data_values_0_subform_field_line_form_inline_entity_form_field_name_chosen']")),
+				"class", "chosen-container-active"));
+		ArrayList <WebElement> technicalDataNameList = new ArrayList<WebElement> (webDriver.findElements(By.xpath("//div[@id='edit_field_technical_data_values_"
+				+ "0_subform_field_line_form_inline_entity_form_field_name_chosen']//ul/li")));
+		for (int i = 0; i < technicalDataNameList.size(); i++){
+			
+			  if (technicalDataNameList.get(i).getText().contains(TDN)){
+				getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(technicalDataNameList.get(i)));
+				new Actions(webDriver).moveToElement(technicalDataNameList.get(i)).click().build().perform();
+				//industries.get(i).click();	
+			}
+		}			
+	}
+	
+	public void setTDvalueAndclickCreateLineBtn(String TDValue){
+		webDriver.switchTo().frame(TDValueFrame);
+		getJSExecutor().executeScript("arguments[0].innerText='123 Value'", webDriver.findElement(By.xpath("//body/p")));
+		//webDriver.findElement(By.xpath("//body/p")).sendKeys(txt);
+		webDriver.switchTo().defaultContent();
+		createTechnicalDataLineBtn.click();
+	}
+	
 	
 	
 	public boolean isElemDisplayed(){

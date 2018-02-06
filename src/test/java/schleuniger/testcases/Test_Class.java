@@ -46,7 +46,12 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		productTemplate.chooseIndustry("Automotive");
 		productTemplate.chooseValueChain("Wire Harness");
 		productTemplate.getWebDriverWait(20);
+		productTemplate.clickOnOverviewTabAndSetValue("test test test test test");
+		productTemplate.openTechDataNamesTabAndChooseTDN("Weight");
+		productTemplate.setTDvalueAndclickCreateLineBtn("123 TEST");;
+		
 		productTemplate.clickSaveAndPublish();
+		
 		//Assert.assertTrue(webDriver.findElement(By.xpath("//*[@id='edit_field_category_chosen']/ul/li[@class='search-choice']")).isDisplayed());
 		
 		
