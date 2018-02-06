@@ -16,6 +16,7 @@ import org.testng.Assert;
 import schleuniger.pages.AddContent;
 import schleuniger.pages.Home;
 import schleuniger.pages.ProductFinder;
+import schleuniger.pages.ProductPageUI;
 import schleuniger.pages.ProductTemplate;
 
 public class Test_Class extends TestCaseBaseForLoggedInUser{
@@ -37,7 +38,6 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		productTemplate.getWebDriverWait(5);
 		productTemplate.typeTitle("Test Product");
 		productTemplate.getWebDriverWait(10);
-		
 		productTemplate.typeSubitle("Subtitle");
 		productTemplate.getWebDriverWait(10);
 		productTemplate.selectLang("de-de");
@@ -48,16 +48,13 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		productTemplate.getWebDriverWait(20);
 		productTemplate.clickOnOverviewTabAndSetValue("test test test test test");
 		productTemplate.openTechDataNamesTabAndChooseTDN("Weight");
-		productTemplate.setTDvalueAndclickCreateLineBtn("123 TEST");;
+		productTemplate.setTDvalueAndclickCreateLineBtn("123 TEST");
+		productTemplate.openSliderTab();
+		productTemplate.setMediaNameFieldAndPicture("Test slide");
+		ProductPageUI productPageUI = productTemplate.clickSaveAndPublish();
 		
-		productTemplate.clickSaveAndPublish();
+		Assert.assertTrue(productPageUI.getTitle().contains("Test Product"));
 		
-		//Assert.assertTrue(webDriver.findElement(By.xpath("//*[@id='edit_field_category_chosen']/ul/li[@class='search-choice']")).isDisplayed());
-		
-		
-		
-		//productTemplate.selectLang("de");
-		//productTemplate.chooseCategory("Cut");
-				
+
 	}
 }

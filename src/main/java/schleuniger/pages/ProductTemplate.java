@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 
 import com.google.common.base.Function;
 
+import framework.pages.MyPageFactory;
 import framework.pages.Page;
 import framework.utility.LogFactory;
 import framework.utility.WebDriverListener;
@@ -66,11 +67,14 @@ public class ProductTemplate extends Page{
     @FindBy(xpath="//input[@value='Create line']")
 	private WebElement createTechnicalDataLineBtn;
     
-    @FindBy(xpath="//details[@id='edit-group-slider']//a[@href='#edit-group-slider']")
+    @FindBy(xpath="//details[@id='edit-group-slider']")//a[@href='#edit-group-slider']
 	private WebElement sliderTab;
 
     @FindBy(xpath="//div[@id='edit-field-slider-form-inline-entity-form-name-wrapper']/div/input")
 	private WebElement mediaNameField;
+    
+    @FindBy(xpath="(//div/a[contains(@href,'/global/en/imce/s3?sendto')])[1]")
+    WebElement openFileBrowserBtn;
     
     @FindBy(xpath="//*[@id='edit-field-slider-form-inline-entity-form-field-video-from-vimeo-value']")
    	private WebElement vimeoVideoCheckbox;
@@ -181,9 +185,31 @@ public class ProductTemplate extends Page{
 		//webDriver.findElement(By.xpath("//body/p")).sendKeys(txt);
 		webDriver.switchTo().defaultContent();
 		createTechnicalDataLineBtn.click();
+		getWebDriverWait(4000).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//fieldset/div[@class='fieldset-wrapper'])[1]")));
 	}
 	
+	public void openSliderTab(){
+		getWebDriverWait(5000).until(ExpectedConditions.elementToBeClickable(sliderTab));
+		sliderTab.click();
+		getWebDriverWait(10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//fieldset[@id='edit-field-slider-form']")));
+	}
 	
+	public void setMediaNameFieldAndPicture(String mediaName){
+		mediaNameField.sendKeys(mediaName);
+		
+		String primaryWindow = webDriver.getWindowHandle();
+		openFileBrowserBtn.click();
+		for(String winHandle : webDriver.getWindowHandles()){
+		    webDriver.switchTo().window(winHandle);
+		}
+		getWebDriverWait(10).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@class='imce-folder-content clearfix']/*")));
+		new Actions(webDriver).moveToElement(webDriver.findElement(By.xpath("//div[contains(text(),'adam-kool-11868.jpg')]/.."))).doubleClick().build().perform();
+		//webDriver.close();
+		webDriver.switchTo().window(primaryWindow);
+		getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//div/span/a[contains(@type,'image/jpeg')]")));
+		createSlideBtn.click();
+		getWebDriverWait(3000).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//fieldset/div[@class='fieldset-wrapper'])[4]")));
+	}
 	
 	public boolean isElemDisplayed(){
 		if(title.isDisplayed() && title.isEnabled()){
@@ -192,8 +218,10 @@ public class ProductTemplate extends Page{
 			return false;
 	}
 	
-	public void clickSaveAndPublish(){
+	public ProductPageUI clickSaveAndPublish(){
+		getWebDriverWait(5000);
 		saveAndPublishBtn.click();
+		return MyPageFactory.initElements(webDriver, ProductPageUI.class);
 	}
 	
 	public ProductTemplate(WebDriver webDriver) {
