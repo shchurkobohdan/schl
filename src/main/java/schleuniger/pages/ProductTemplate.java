@@ -184,12 +184,13 @@ public class ProductTemplate extends Page{
 		getJSExecutor().executeScript("arguments[0].innerText='123 Value'", webDriver.findElement(By.xpath("//body/p")));
 		//webDriver.findElement(By.xpath("//body/p")).sendKeys(txt);
 		webDriver.switchTo().defaultContent();
+		getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(createTechnicalDataLineBtn));
 		createTechnicalDataLineBtn.click();
-		getWebDriverWait(4000).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//fieldset/div[@class='fieldset-wrapper'])[1]")));
+		getWebDriverWait(4).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//fieldset/div[@class='fieldset-wrapper'])[1]")));
 	}
 	
 	public void openSliderTab(){
-		getWebDriverWait(5000).until(ExpectedConditions.elementToBeClickable(sliderTab));
+		getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(sliderTab));
 		sliderTab.click();
 		getWebDriverWait(10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//fieldset[@id='edit-field-slider-form']")));
 	}
@@ -208,7 +209,7 @@ public class ProductTemplate extends Page{
 		webDriver.switchTo().window(primaryWindow);
 		getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//div/span/a[contains(@type,'image/jpeg')]")));
 		createSlideBtn.click();
-		getWebDriverWait(3000).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//fieldset/div[@class='fieldset-wrapper'])[4]")));
+		getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//fieldset/div[@class='fieldset-wrapper'])[4]")));
 	}
 	
 	public boolean isElemDisplayed(){
@@ -219,7 +220,7 @@ public class ProductTemplate extends Page{
 	}
 	
 	public ProductPageUI clickSaveAndPublish(){
-		getWebDriverWait(5000);
+		getWebDriverWait(5);
 		saveAndPublishBtn.click();
 		return MyPageFactory.initElements(webDriver, ProductPageUI.class);
 	}
