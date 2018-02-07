@@ -11,6 +11,7 @@ import com.google.common.base.Function;
 
 import framework.pages.MyPageFactory;
 import framework.pages.Page;
+import io.qameta.allure.Step;
 
 public class Home extends Page{
 	
@@ -26,7 +27,7 @@ public class Home extends Page{
 	@FindBy(xpath="(//ul[@class='toolbar-menu']/li)[1]")
 	private WebElement contentBtn;
 	
-	@FindBy(xpath="//ul[@class='toolbar-menu']/li/a[@href='/global/en/node/add']")
+	@FindBy(xpath="//ul[@class='toolbar-menu']/li/a[@href='/dach/de-de/node/add']")
 	private WebElement addContentBtn;
 	
 	Actions actions = new Actions(webDriver);
@@ -52,10 +53,12 @@ public class Home extends Page{
 		manageBTNinMenu.click();
 	}
 	
+	@Step ("Navigate to Content btn.")
 	public void hoverContentBtn(){
 		actions.moveToElement(contentBtn).perform();
 	}
 	
+	@Step("Click on Add content btn.")
 	public AddContent clickAddContentBtn(){
 		new WebDriverWait(webDriver, 10).until(ExpectedConditions.elementToBeClickable(addContentBtn));
 		actions.moveToElement(addContentBtn).perform();

@@ -10,6 +10,7 @@ import com.google.common.base.Function;
 
 import framework.pages.MyPageFactory;
 import framework.pages.Page;
+import io.qameta.allure.Step;
 
 public class AddContent extends Page{
 	
@@ -19,6 +20,7 @@ public class AddContent extends Page{
 	@FindBy(xpath="//ul[@class='admin-list']/li/a/span[contains(text(),'Product')]")
 	private WebElement productContentType;
 	
+	@Step("Click on Product content type.")
 	public ProductTemplate clickOnProductContType(){
 		productContentType.click();
 		return MyPageFactory.initElements(webDriver, ProductTemplate.class);

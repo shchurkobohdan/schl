@@ -73,7 +73,7 @@ public class ProductTemplate extends Page{
     @FindBy(xpath="//div[@id='edit-field-slider-form-inline-entity-form-name-wrapper']/div/input")
 	private WebElement mediaNameField;
     
-    @FindBy(xpath="(//div/a[contains(@href,'/global/en/imce/s3?sendto')])[1]")
+    @FindBy(xpath="(//div/a[contains(@href,'/dach/de-de/imce/s3?sendto')])[1]")
     WebElement openFileBrowserBtn;
     
     @FindBy(xpath="//*[@id='edit-field-slider-form-inline-entity-form-field-video-from-vimeo-value']")
@@ -233,7 +233,7 @@ public class ProductTemplate extends Page{
 	@Override
 	public Function<WebDriver, ?> isPageLoaded() {
 		// TODO Auto-generated method stub
-		return ExpectedConditions.urlToBe("https://schleuniger.rolique.space/global/en/node/add/product");
+		return ExpectedConditions.urlToBe("https://schleuniger.rolique.space/dach/de-de/node/add/product");
 	}
 
 }

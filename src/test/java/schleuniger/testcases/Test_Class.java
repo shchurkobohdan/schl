@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import framework.pages.MyPageFactory;
 import framework.utility.LogFactory;
 import framework.utility.WebDriverListener;
+import io.qameta.allure.Step;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -23,7 +24,6 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 	private static final Logger LOG = LogFactory.getLogger(WebDriverListener.class);
 	@Test
 	public void createProduct(){
-		
 		webDriver.navigate().to("https://schleuniger.rolique.space/dach/de-de");
 		home = MyPageFactory.initElements(webDriver, Home.class);
 		
