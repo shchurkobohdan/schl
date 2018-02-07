@@ -24,7 +24,7 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 	@Test
 	public void createProduct(){
 		
-		webDriver.navigate().to("https://schleuniger.rolique.space/global/en");
+		webDriver.navigate().to("https://schleuniger.rolique.space/dach/de-de");
 		home = MyPageFactory.initElements(webDriver, Home.class);
 		
 		if (home.isAdminMenuPresent()){
