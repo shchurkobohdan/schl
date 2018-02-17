@@ -11,6 +11,7 @@ import com.google.common.base.Preconditions;
 
 import framework.pages.MyPageFactory;
 import framework.utility.LogFactory;
+import framework.utility.TestResultListener;
 import framework.webdriver.WebDriverFactory;
 import schleuniger.pages.Home;
 import schleuniger.pages.Login;
@@ -30,7 +31,7 @@ public class TestCaseBaseForLoggedInUser {
 	public void setup() {
 		String browserName = System.getProperty("browser");
 		webDriver = WebDriverFactory.getInstance(browserName);
-
+		
 		LOG.info("Navigating to test url");
 		webDriver.get("https://schleuniger.rolique.space/global/en/user");
 		login = MyPageFactory.initElements(webDriver, Login.class);

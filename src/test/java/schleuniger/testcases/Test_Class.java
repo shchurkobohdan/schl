@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import framework.pages.MyPageFactory;
 import framework.utility.LogFactory;
+import framework.utility.TestResultListener;
 import framework.utility.WebDriverListener;
 
 import org.openqa.selenium.By;
@@ -17,7 +18,7 @@ import schleuniger.pages.Home;
 import schleuniger.pages.ProductPageUI;
 import schleuniger.pages.ProductTemplate;
 
-public class Test_Class extends TestCaseBaseForLoggedInUser{
+public class Test_Class extends TestCaseBaseForLoggedInUser {
 	private static final Logger LOG = LogFactory.getLogger(WebDriverListener.class);
 	@Test (priority=1) //(enabled=false)
 	public void createProduct() throws InterruptedException{
@@ -47,7 +48,9 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		ProductPageUI productPageUI = productTemplate.clickSaveAndPublish();
 		
 		Assert.assertTrue(productPageUI.getTitle().contains("Test Product"));
-	}
+		TestResultListener testResultListener = new TestResultListener();
+		testResultListener.testScreenshotOnFinish();
+		}
 	
 	@Test (priority=2)
 	public void editProduct() throws InterruptedException{
@@ -61,6 +64,9 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		ProductPageUI productPageUI = productTemplate.clickSaveAndKeepPublished();
 		
 		Assert.assertTrue(productPageUI.getTitle().contains("Test Product"));
+		TestResultListener testResultListener = new TestResultListener();
+		testResultListener.testScreenshotOnFinish();
+		
 	}
 	
 	@Test (priority=3)
@@ -75,5 +81,7 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		
 		
 		Assert.assertTrue(home.isElementPresent(webDriver.findElement(By.xpath("//div[@aria-label='Status message']"))));
+		TestResultListener testResultListener = new TestResultListener();
+		testResultListener.testScreenshotOnFinish();
 	}
 }
