@@ -15,6 +15,9 @@ import io.qameta.allure.Step;
 
 public class Home extends Page{
 	
+	@FindBy(xpath="(//*[contains(@class, 'mainpage-section__title')])[1]")
+	private WebElement featuredProductsTitle;
+	
 	@FindBy(xpath="//*[@title='Search']")
 	private WebElement searchBtn;
 	
@@ -56,6 +59,7 @@ public class Home extends Page{
 	@Step ("Navigate to Content btn.")
 	public void hoverContentBtn(){
 		actions.moveToElement(contentBtn).perform();
+		getWebDriverWait(5);
 	}
 	
 	@Step("Click on Add content btn.")
@@ -66,14 +70,16 @@ public class Home extends Page{
 		return MyPageFactory.initElements(webDriver, AddContent.class);
 	}
 	
-	public void clickOnContentBtn (){
+	@Step("Open Content page.")
+	public AdminContentPg clickOnContentBtn (){
 		contentBtn.click();
+		return MyPageFactory.initElements(webDriver, AdminContentPg.class);
 	}
 	
 	@Override
 	public Function<WebDriver, ?> isPageLoaded() {
 		// TODO Auto-generated method stub
-		return ExpectedConditions.visibilityOf(searchBtn);
+		return ExpectedConditions.visibilityOf(featuredProductsTitle);
 	}
 
 }

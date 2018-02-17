@@ -28,8 +28,8 @@ public class TestCaseBaseForLoggedInUser {
 
 	@BeforeMethod
 	public void setup() {
-		// String browserName = System.getProperty("browser");
-		webDriver = WebDriverFactory.getInstance("chrome");
+		String browserName = System.getProperty("browser");
+		webDriver = WebDriverFactory.getInstance(browserName);
 
 		LOG.info("Navigating to test url");
 		webDriver.get("https://schleuniger.rolique.space/global/en/user");

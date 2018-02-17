@@ -56,7 +56,7 @@ public class WebDriverFactory {
 			} else if (FIREFOX.equals(browser)) {
 				setFFDriver();
 				FirefoxOptions options = new FirefoxOptions();
-				//options.setCapability("marionette", false);
+				options.setCapability("marionette", false);
 
 				webDriver = new FirefoxDriver(options);
 				LOG.info("Firefox driver was created");

@@ -5,25 +5,22 @@ import org.testng.annotations.Test;
 import framework.pages.MyPageFactory;
 import framework.utility.LogFactory;
 import framework.utility.WebDriverListener;
-import io.qameta.allure.Step;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Sleeper;
 import org.slf4j.Logger;
 import org.testng.Assert;
 
 import schleuniger.pages.AddContent;
+import schleuniger.pages.AdminContentPg;
+import schleuniger.pages.DeletePage;
 import schleuniger.pages.Home;
-import schleuniger.pages.ProductFinder;
 import schleuniger.pages.ProductPageUI;
 import schleuniger.pages.ProductTemplate;
 
 public class Test_Class extends TestCaseBaseForLoggedInUser{
 	private static final Logger LOG = LogFactory.getLogger(WebDriverListener.class);
-	@Test
-	public void createProduct(){
+	@Test (priority=1) //(enabled=false)
+	public void createProduct() throws InterruptedException{
 		webDriver.navigate().to("https://schleuniger.rolique.space/dach/de-de");
 		home = MyPageFactory.initElements(webDriver, Home.class);
 		
@@ -32,21 +29,17 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		}
 		
 		home.hoverContentBtn();
-		home.getWebDriverWait(5);
 		AddContent addContent = home.clickAddContentBtn();
 		ProductTemplate productTemplate =  addContent.clickOnProductContType();
-		productTemplate.getWebDriverWait(5);
 		productTemplate.typeTitle("Test Product");
-		productTemplate.getWebDriverWait(10);
 		productTemplate.typeSubitle("Subtitle");
-		productTemplate.getWebDriverWait(10);
 		productTemplate.selectLang("de-de");
-		productTemplate.getWebDriverWait(10);
 		productTemplate.chooseCategory("Strip");
+		productTemplate.chooseCategory("Koaxialkabel");
+		//productTemplate.chooseSubcategory("Konventionelle Kabel");
 		productTemplate.chooseIndustry("Automotive");
 		productTemplate.chooseValueChain("Wire Harness");
-		productTemplate.getWebDriverWait(20);
-		productTemplate.clickOnOverviewTabAndSetValue("test test test test test");
+		productTemplate.clickOnOverviewTabAndSetValue("test test test");
 		productTemplate.openTechDataNamesTabAndChooseTDN("Weight");
 		productTemplate.setTDvalueAndclickCreateLineBtn("123 TEST");
 		productTemplate.openSliderTab();
@@ -54,7 +47,33 @@ public class Test_Class extends TestCaseBaseForLoggedInUser{
 		ProductPageUI productPageUI = productTemplate.clickSaveAndPublish();
 		
 		Assert.assertTrue(productPageUI.getTitle().contains("Test Product"));
+	}
+	
+	@Test (priority=2)
+	public void editProduct() throws InterruptedException{
+		webDriver.navigate().to("https://schleuniger.rolique.space/dach/de-de");
+		home = MyPageFactory.initElements(webDriver, Home.class);
+		AdminContentPg adminContentPg = home.clickOnContentBtn();
+		adminContentPg.typeTitleField("Test Product");
+		adminContentPg.clickFilterBtn();
+		ProductTemplate productTemplate = adminContentPg.searchForNodeAndEdit("Test Product");
+		productTemplate.typeTitle("Test Product (edited)");
+		ProductPageUI productPageUI = productTemplate.clickSaveAndKeepPublished();
 		
-
+		Assert.assertTrue(productPageUI.getTitle().contains("Test Product"));
+	}
+	
+	@Test (priority=3)
+	public void deleteProduct() throws InterruptedException{
+		webDriver.navigate().to("https://schleuniger.rolique.space/dach/de-de");
+		home = MyPageFactory.initElements(webDriver, Home.class);
+		AdminContentPg adminContentPg = home.clickOnContentBtn();
+		adminContentPg.typeTitleField("Test Product (edited)");
+		adminContentPg.clickFilterBtn();
+		DeletePage deletePage = adminContentPg.searchForNodeAndDelete("Test Product (edited)");
+		deletePage.clickDeleteBtn();
+		
+		
+		Assert.assertTrue(home.isElementPresent(webDriver.findElement(By.xpath("//div[@aria-label='Status message']"))));
 	}
 }
