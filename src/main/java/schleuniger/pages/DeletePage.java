@@ -10,6 +10,7 @@ import com.google.common.base.Function;
 
 import framework.pages.MyPageFactory;
 import framework.pages.Page;
+import io.qameta.allure.Step;
 
 public class DeletePage extends Page{
 	
@@ -19,6 +20,7 @@ public class DeletePage extends Page{
 	@FindBy(xpath="//input[@value='Delete']")
 	private WebElement deleteBtn;
 	
+	@Step("Click Delete btn to confirm.")
 	public Home clickDeleteBtn(){
 		deleteBtn.click();
 	return MyPageFactory.initElements(webDriver, Home.class);

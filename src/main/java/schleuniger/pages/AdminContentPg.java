@@ -12,6 +12,7 @@ import com.google.common.base.Function;
 
 import framework.pages.MyPageFactory;
 import framework.pages.Page;
+import io.qameta.allure.Step;
 
 public class AdminContentPg extends Page{
 	
@@ -24,16 +25,18 @@ public class AdminContentPg extends Page{
 	@FindBy(xpath="//input[@id='edit-submit-content']")
 	private WebElement filterBtn;
 	
+	@Step("Typing Title field.")	
 	public void typeTitleField(String title){
 		titleField.clear();
 		titleField.sendKeys(title);
 	}
 	
+	@Step("Click Filter btn.")
 	public void clickFilterBtn(){
 		filterBtn.click();
 	}
 	
-	
+	@Step("Search for product and click Edit btn.")
 	public ProductTemplate searchForNodeAndEdit(String name){
 		ArrayList<WebElement>contentItems = new ArrayList<WebElement>(webDriver.findElements(By.xpath("//div[@class='view-content']/div/form/"
 				+ "table[contains(@class,'views-table')]/tbody/tr"))); //td[contains(@class,'title')]/a
@@ -45,6 +48,7 @@ public class AdminContentPg extends Page{
 		}return MyPageFactory.initElements(webDriver, ProductTemplate.class);
 	}
 	
+	@Step("Search for product and click Delete btn.")
 	public DeletePage searchForNodeAndDelete(String name){
 		ArrayList<WebElement>contentItems = new ArrayList<WebElement>(webDriver.findElements(By.xpath("//div[@class='view-content']/div/form/"
 				+ "table[contains(@class,'views-table')]/tbody/tr"))); //td[contains(@class,'title')]/a
